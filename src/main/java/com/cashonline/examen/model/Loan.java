@@ -17,6 +17,6 @@ public class Loan {
     private Float total;
 
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
-    private Long user;
+    private Long userId;
 
 }
