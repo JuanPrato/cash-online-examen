@@ -7,10 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper(uses = LoanMapper.class)
+@Mapper(componentModel = "spring", uses = LoanMapper.class)
 public interface UserMapper {
-
-    UserMapper INSTANCE = Mappers.getMapper(UserMapper.class);
 
     @Mapping(source = "user_id", target = "id")
     UserDTO userToUserDTO(User user);

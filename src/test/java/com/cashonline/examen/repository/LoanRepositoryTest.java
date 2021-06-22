@@ -2,47 +2,26 @@ package com.cashonline.examen.repository;
 
 import com.cashonline.examen.model.Loan;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.List;
-
+@SpringBootTest
 public class LoanRepositoryTest {
 
-    @Resource
+    @Autowired
     private LoanRepository loanRepository;
 
-    private List<Loan> loanToInsert;
-
     @BeforeEach
-    public void setUp() {
-
-        loanToInsert = new ArrayList<>();
-
-        final Loan loan1 = new Loan();
-        loan1.setId(1L);
-        loan1.setTotal(1.0F);
-        loan1.setUserId(1L);
-        final Loan loan2 = new Loan();
-        loan2.setId(2L);
-        loan2.setTotal(2.0F);
-        loan2.setUserId(1L);
-        final Loan loan3 = new Loan();
-        loan3.setId(3L);
-        loan3.setTotal(3.2F);
-        loan3.setUserId(2L);
-
-        loanToInsert.add(loan1);
-        loanToInsert.add(loan2);
-        loanToInsert.add(loan3);
-
-        loanRepository.saveAll(loanToInsert);
+    private void setUp() {
+        loanRepository.save(new Loan(1L, 150.00F, 1L));
+        loanRepository.save(new Loan(2L, 75.32F, 1L));
+        loanRepository.save(new Loan(3L, 75.32F, 2L));
     }
 
     @Test
@@ -57,6 +36,6 @@ public class LoanRepositoryTest {
         Assertions.assertNotNull(response);
         Assertions.assertEquals(2 ,response.getTotalElements());
         Assertions.assertEquals(2, response.getTotalPages());
-        Assertions.assertEquals(loanToInsert.get(0), response.get().findFirst().orElseThrow(Exception::new));
+        Assertions.assertEquals( new Loan(1L, 150.00F, 1L), response.get().findFirst().orElseThrow(Exception::new));
     }
 }

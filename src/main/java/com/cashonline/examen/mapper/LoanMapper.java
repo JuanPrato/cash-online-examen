@@ -4,12 +4,9 @@ import com.cashonline.examen.dto.LoanDTO;
 import com.cashonline.examen.dto.UserLoanDTO;
 import com.cashonline.examen.model.Loan;
 import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
-@Mapper
+@Mapper(componentModel = "spring")
 public interface LoanMapper {
-
-    LoanMapper INSTANCE = Mappers.getMapper(LoanMapper.class);
 
     LoanDTO loanToLoanDTO(Loan loan);
 

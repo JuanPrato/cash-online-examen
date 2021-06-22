@@ -4,7 +4,7 @@ import com.cashonline.examen.common.ResponseError;
 import com.cashonline.examen.dto.CreateUserDTO;
 import com.cashonline.examen.dto.UserDTO;
 import com.cashonline.examen.exception.BadRequestException;
-import com.cashonline.examen.exception.InternalServerException;
+import com.cashonline.examen.exception.NotFoundException;
 import com.cashonline.examen.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +32,9 @@ public class UserController {
         } catch (BadRequestException ex) {
             logger.error("BAD REQUEST ERROR: GET ONE USER with id " + id, ex);
             return ResponseEntity.badRequest().body(new ResponseError(ex));
+        } catch (NotFoundException ex) {
+            logger.error("USER NOT FOUND WITH ID " + id);
+            return ResponseEntity.notFound().build();
         } catch (Exception ex) {
             logger.error("INTERNAL ERROR: GET ONE USER with id " + id, ex);
             return ResponseEntity.internalServerError().body(new ResponseError(ex));
