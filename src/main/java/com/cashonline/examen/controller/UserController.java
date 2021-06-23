@@ -60,7 +60,22 @@ public class UserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteOneUser(@PathVariable("id") Long id) {
-        return null;
+        UserDTO user;
+
+        try {
+            user = userService.deleteOne(id);
+        } catch (BadRequestException ex) {
+            logger.error("BAD REQUEST ERROR: DELETE ONE USER with data: ", ex);
+            return ResponseEntity.badRequest().body(new ResponseError(ex));
+        } catch (NotFoundException ex) {
+            logger.error("USER NOT FOUND WITH ID " + id, ex);
+            return ResponseEntity.notFound().build();
+        } catch (Exception ex) {
+            logger.error("UNKNOWN EXCEPTION => ", ex);
+            return ResponseEntity.internalServerError().body(new ResponseError(ex));
+        }
+
+        return ResponseEntity.ok(user);
     }
 
 }

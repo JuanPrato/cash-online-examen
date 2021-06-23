@@ -16,44 +16,6 @@ INSERT INTO "users" (email, first_name, last_name) SELECT 'example@mail.com.ar',
         );
 
 -- LOANS
-
--- INSERT INTO "loans" (total, user_id) SELECT 150.00, 1 WHERE
---     NOT EXISTS (
---         SELECT id FROM "loans" WHERE id = 1
---     );
--- INSERT INTO "loans" (total, user_id) SELECT 75.32, 1 WHERE
---     NOT EXISTS (
---         SELECT id FROM "loans" WHERE id = 2
---     );
--- INSERT INTO "loans" (total, user_id) SELECT 24.21, 2 WHERE
---     NOT EXISTS (
---         SELECT id FROM "loans" WHERE id = 3
---     );
--- INSERT INTO "loans" (total, user_id) SELECT 250.00, 1 WHERE
---     NOT EXISTS (
---             SELECT id FROM "loans" WHERE id = 4
---         );
--- INSERT INTO "loans" (total, user_id) SELECT 1024.0, 3 WHERE
---     NOT EXISTS (
---             SELECT id FROM "loans" WHERE id = 5
---         );
--- INSERT INTO "loans" (total, user_id) SELECT 3912.32, 2 WHERE
---     NOT EXISTS (
---             SELECT id FROM "loans" WHERE id = 6
---         );
--- INSERT INTO "loans" (total, user_id) SELECT 150.00, 1 WHERE
---     NOT EXISTS (
---             SELECT id FROM "loans" WHERE id = 7
---         );
--- INSERT INTO "loans" (total, user_id) SELECT 5000, 2 WHERE
---     NOT EXISTS (
---             SELECT id FROM "loans" WHERE id = 8
---         );
--- INSERT INTO "loans" (total, user_id) SELECT 7500.31, 2 WHERE
---     NOT EXISTS (
---             SELECT id FROM "loans" WHERE id = 9
---         );
-
 do
 '
 declare
