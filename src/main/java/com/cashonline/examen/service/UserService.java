@@ -11,6 +11,7 @@ import com.cashonline.examen.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
@@ -28,7 +29,7 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public UserDTO getOne(Long id) throws BadRequestException, NotFoundException, InternalServerException {
+    public UserDTO getOne(Long id) throws BadRequestException, NotFoundException, InternalServerException, DataAccessException {
         if (id == null) {
             throw new BadRequestException("Invalid id");
         }
@@ -44,7 +45,7 @@ public class UserService {
         return userMapper.userToUserDTO(user);
     }
 
-    public UserDTO createOne(CreateUserDTO userDTO) throws BadRequestException {
+    public UserDTO createOne(CreateUserDTO userDTO) throws Exception {
 
         if (
             userDTO == null ||
@@ -62,4 +63,18 @@ public class UserService {
         return userMapper.userToUserDTO(userSaved);
     }
 
+    public UserDTO deleteOne(Long id) throws BadRequestException, NotFoundException {
+
+        if (id == null) {
+            throw new BadRequestException("Invalid id");
+        }
+
+        User userFound = userRepository.findById(id).orElseThrow( () ->
+                new NotFoundException("User not found")
+        );
+
+        userRepository.delete(userFound);
+
+        return userMapper.userToUserDTO(userFound);
+    }
 }
