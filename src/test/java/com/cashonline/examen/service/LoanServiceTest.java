@@ -69,4 +69,37 @@ public class LoanServiceTest {
         Assertions.assertNotNull(response);
         Assertions.assertEquals(loanPage, response);
     }
+
+    @Test
+    public void testGetLoansPageUserPageNullShouldThrows () {
+
+        Assertions.assertThrows(BadRequestException.class, () ->
+                loanService.getLoansPage(null, null, 1));
+
+    }
+
+    @Test
+    public void testGetLoansPageSizeNullShouldThrow () {
+
+        Assertions.assertThrows(BadRequestException.class, () ->
+                loanService.getLoansPage(null, 1, null));
+
+    }
+
+    @Test
+    public void testGetLoansPageInvalidPageNumberShouldThrow () {
+
+        Assertions.assertThrows(BadRequestException.class, () ->
+                loanService.getLoansPage(null, 0, 1));
+
+    }
+
+    @Test
+    public void testGetLoansPageInvalidSizeShouldThrow () {
+
+
+        Assertions.assertThrows(BadRequestException.class, () ->
+                loanService.getLoansPage(null, 1, -1));
+
+    }
 }
