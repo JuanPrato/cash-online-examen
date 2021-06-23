@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,7 +81,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void testCreateOneOk () throws BadRequestException {
+    public void testCreateOneOk () throws Exception {
 
         Mockito.when(userRepository.save(Mockito.any())).thenReturn(user1);
         Mockito.when(userMapper.userToUserDTO(Mockito.any())).thenReturn(userDTO1);
@@ -112,4 +113,31 @@ public class UserServiceTest {
         Assertions.assertThrows(BadRequestException.class, () -> userService.createOne(new CreateUserDTO("email", "Juan", null)));
     }
 
+    @Test
+    public void testDeleteOneOk () throws BadRequestException, NotFoundException {
+
+        Mockito.when(userRepository.findById(Mockito.any())).thenReturn(Optional.of(user1));
+        Mockito.when(userMapper.userToUserDTO(user1)).thenReturn(userDTO1);
+
+        UserDTO response = userService.deleteOne(1L);
+
+        Assertions.assertNotNull(response);
+        Assertions.assertEquals(userDTO1, response);
+    }
+
+    @Test
+    public void testDeleteOneIdNull () {
+
+        Assertions.assertThrows(BadRequestException.class, () -> userService.deleteOne(null));
+
+    }
+
+    @Test
+    public void testDeleteOneUserNotFound () {
+
+        Mockito.when(userRepository.findById(Mockito.any())).thenReturn(Optional.empty());
+
+        Assertions.assertThrows(NotFoundException.class, () -> userService.deleteOne(1L));
+
+    }
 }
