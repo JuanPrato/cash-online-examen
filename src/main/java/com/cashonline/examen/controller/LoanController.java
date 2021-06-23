@@ -6,10 +6,7 @@ import com.cashonline.examen.exception.BadRequestException;
 import com.cashonline.examen.service.LoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/loans")
@@ -23,7 +20,9 @@ public class LoanController {
     }
 
     @GetMapping()
-    public ResponseEntity<?> getLoans(@RequestParam("page") Integer page, @RequestParam("size") Integer size, @RequestParam(value = "user_id", required = false) Long userId) {
+    public ResponseEntity<?> getLoans(@RequestParam(value = "page", required = false) Integer page,
+                                      @RequestParam(value = "size", required = false) Integer size,
+                                      @RequestParam(value = "user_id", required = false) Long userId) {
 
         LoanPage response;
         try {

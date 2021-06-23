@@ -16,12 +16,13 @@ INSERT INTO "users" (email, first_name, last_name) SELECT 'example@mail.com.ar',
         );
 
 -- LOANS
+
 do
 '
 declare
 begin
     FOR i IN 1 .. 150 LOOP
-        INSERT INTO "loans" (total, user_id) SELECT round(random()* (10000-1 + 1) + 1, 2), floor(random()* (3-1 + 1) + 1) WHERE NOT EXISTS(SELECT id FROM "loans" WHERE id=i);
+        INSERT INTO "loans" (total, user_id) SELECT round(cast(random()* (10000-1 + 1) + 1 as numeric), 2), cast(floor(random()* (3-1 + 1) + 1) as BIGINT) WHERE NOT EXISTS(SELECT id FROM "loans" WHERE id=i);
     END LOOP;
 end;
 ' language PLPGSQL;
