@@ -30,7 +30,7 @@ public class LoanService {
     public LoanPage getLoansPage(Long userId, Integer page, Integer size) throws BadRequestException {
 
         if (page == null || size == null) {
-            throw new BadRequestException("Invalid input");
+            throw new BadRequestException("Invalid page or size");
         }
         Pageable pageable;
         try {
