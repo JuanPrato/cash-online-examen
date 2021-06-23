@@ -1,7 +1,6 @@
 package com.cashonline.examen.service;
 
 import com.cashonline.examen.common.loan.LoanPage;
-import com.cashonline.examen.dto.LoanDTO;
 import com.cashonline.examen.exception.BadRequestException;
 import com.cashonline.examen.mapper.LoanMapper;
 import com.cashonline.examen.mapper.PagingMapper;
@@ -13,8 +12,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 
 @Service
 public class LoanService {
@@ -35,9 +32,12 @@ public class LoanService {
         if (page == null || size == null) {
             throw new BadRequestException("Invalid input");
         }
-
-        Pageable pageable = PageRequest.of(page, size);
-
+        Pageable pageable;
+        try {
+             pageable = PageRequest.of(page - 1, size);
+        } catch (IllegalArgumentException ex) {
+            throw new BadRequestException("Invalid page or size");
+        }
         LoanPage loansPage = new LoanPage();
         Page<Loan> loansPageDB;
 
