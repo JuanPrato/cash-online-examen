@@ -1,9 +1,13 @@
 # Exam for cash online
 
 This is an exam of cash back of a Java application that uses Spring Boot 2 and Maven.
-It is compiled using Codefresh.
 
-If you are looking for Gradle, then see this [example](https://github.com/codefresh-contrib/gradle-sample-app)
+## Clarifications
+
+<ul>
+    <li>It's assumed that you have a local postgres database running with the credentials mentioned on application.properties</li>
+    <li>It's assumed that you have maven installed</li>
+</ul>
 
 
 ## Instructions
@@ -95,11 +99,11 @@ mvn verify
 
 ##- Loans:
 
-### Starting path: /loans/
+### Starting path: /loans
 
 **Method: Get**
 
-| Params        | Example       | Necessary |
+| Params        | Example       | Required |
 | ------------- |:-------------:|:---------:|
 | page          | 1             |Yes        |
 | size          | 50            |Yes        |
@@ -133,4 +137,9 @@ mvn verify
   }
 }
 ```
+
+## Entity-Relation diagram
+
+![db diagram](/files/cashonline.png)
+
 Enjoy!
