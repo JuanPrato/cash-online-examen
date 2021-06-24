@@ -6,6 +6,8 @@ import com.cashonline.examen.dto.UserDTO;
 import com.cashonline.examen.exception.BadRequestException;
 import com.cashonline.examen.exception.InternalServerException;
 import com.cashonline.examen.exception.NotFoundException;
+import com.cashonline.examen.repository.LoanRepository;
+import com.cashonline.examen.repository.UserRepository;
 import com.cashonline.examen.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
@@ -44,6 +46,12 @@ public class UserControllerTest {
 
     @MockBean
     private UserService userService;
+
+    @MockBean
+    private UserRepository userRepository;
+
+    @MockBean
+    private LoanRepository loanRepository;
 
     private String user1String;
 
